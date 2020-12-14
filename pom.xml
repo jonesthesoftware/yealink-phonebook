@@ -1,0 +1,100 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.1</version>
+        <relativePath/>
+    </parent>
+    
+    <groupId>io.github.jonesthesoftware</groupId>
+    <artifactId>yealink-phonebook</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>Yealink Phonebook</name>
+    <inceptionYear>2020</inceptionYear>
+    
+    <developers>
+        <developer>
+            <name>Wayne Jones</name>
+            <email>jonesthesoftware@rg10.co.uk</email>
+            <roles>
+                <role>developer</role>
+                <role>architect</role>
+            </roles>
+        </developer>
+    </developers>
+    
+    <licenses>
+        <license>
+            <name>GNU General Public License v3 (GPLv3)</name>
+            <url>https://www.gnu.org/licenses/gpl-3.0.txt</url>
+        </license>
+    </licenses>
+ 
+    <properties>
+        <java.version>1.8</java.version>
+        <license-plugin.version>3.0</license-plugin.version>
+        <joox.version>1.6.2</joox.version>
+    </properties>
+    
+    <dependencies>
+        <!-- Spring Boot Dependencies -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        
+        <!-- Other Dependencies -->
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>joox</artifactId>
+            <version>${joox.version}</version>
+        </dependency>
+        
+    </dependencies>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            
+            <!-- GPL v3 license -->
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>${license-plugin.version}</version>
+                <configuration>
+                    <header>${project.basedir}/license-template/spdx_gpl_v3.txt</header>
+                    <properties>
+                        <owner>Wayne Jones</owner>
+                    </properties>
+                    <includes>
+                        <include>src/main/java/**</include>
+                        <include>src/main/resources/templates/**</include>
+                        <include>src/test/java/**</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/LICENSE.txt</exclude>
+                        <exclude>**/README</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
+        </plugins>
+    </build>
+    
+</project>
