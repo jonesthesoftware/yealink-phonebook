@@ -32,7 +32,11 @@
     </licenses>
  
     <properties>
-        <java.version>1.8</java.version>
+        <!-- Require Java 9+ -->
+        <java.version>1.9</java.version>
+        <maven.compiler.source>1.9</maven.compiler.source>
+        <maven.compiler.target>1.9</maven.compiler.target>
+        
         <license-plugin.version>3.0</license-plugin.version>
         <joox.version>1.6.2</joox.version>
     </properties>
@@ -47,8 +51,18 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
         
         <!-- Other Dependencies -->
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+        </dependency>
         <dependency>
             <groupId>org.jooq</groupId>
             <artifactId>joox</artifactId>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SimpleIPPhoneDirectory>
+    <DirectoryEntry>
+        <Name>Charles</Name>
+        <Telephone>01111111111</Telephone>
+    </DirectoryEntry>
+    <DirectoryEntry>
+        <Name>Alexander</Name>
+        <Telephone>11111111111</Telephone>
+        <Telephone>12222222222</Telephone>
+    </DirectoryEntry>
+    <DirectoryEntry>
+        <Name>Graham</Name>
+        <Telephone>21111111111</Telephone>
+        <Telephone>22222222222</Telephone>
+        <Telephone>23333333333</Telephone>
+    </DirectoryEntry>
+</SimpleIPPhoneDirectory>
