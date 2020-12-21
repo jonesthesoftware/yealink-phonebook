@@ -7,8 +7,12 @@ package io.github.jonesthesoftware.yealink.phonebook;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
+@EnableJpaRepositories( "io.github.jonesthesoftware.yealink.phonebook.jpa" )
+@EntityScan( "io.github.jonesthesoftware.yealink.phonebook.jpa.type" )
 public class PhoneBookApplication {
 
 	public static void main( String[] args ) {

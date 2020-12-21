@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import io.github.jonesthesoftware.yealink.phonebook.type.DirectoryEntry;
-import io.github.jonesthesoftware.yealink.phonebook.type.Directory;
+import io.github.jonesthesoftware.yealink.phonebook.jpa.type.Directory;
+import io.github.jonesthesoftware.yealink.phonebook.jpa.type.DirectoryEntry;
 import io.github.jonesthesoftware.yealink.phonebook.utility.XmlUtility;
 import io.github.jonesthesoftware.yealink.phonebook.xml.PhoneBookElement;
 
@@ -47,7 +47,7 @@ public class PhoneDirectoryToXmlDocumentConverter implements Converter<Directory
 		} catch ( ParserConfigurationException e ) {
 			throw new ConverterRuntimeException( e );
 		}
-		Element directoryElement = xmlUtility.addDocumentElement( document, phoneDirectory.getName() + PhoneBookElement.DIRECTORY_POSTFIX );
+		Element directoryElement = xmlUtility.addDocumentElement( document, phoneDirectory.getDirectoryName() + PhoneBookElement.DIRECTORY_POSTFIX );
 		phoneDirectory.getDirectoryEntries().forEach( 
 			de -> { 
 				Element directoryEntryElement = xmlUtility.addContainerElement( directoryElement, PhoneBookElement.DIRECTORY_ENTRY ); 
@@ -64,9 +64,9 @@ public class PhoneDirectoryToXmlDocumentConverter implements Converter<Directory
 	 * @return
 	 */
 	protected void convertDirectoryEntry( DirectoryEntry directoryEntry, Element directoryEntryElement ) {
-		xmlUtility.addTextElement( directoryEntryElement, PhoneBookElement.CONTACT_NAME, directoryEntry.getName() );
-		directoryEntry.getTelephone().forEach( 
-				p -> xmlUtility.addTextElement( directoryEntryElement, PhoneBookElement.PHONE_NUMBER, p ) 
+		xmlUtility.addTextElement( directoryEntryElement, PhoneBookElement.CONTACT_NAME, directoryEntry.getEntryName() );
+		directoryEntry.getPhoneEntries().forEach( 
+				p -> xmlUtility.addTextElement( directoryEntryElement, PhoneBookElement.PHONE_NUMBER, p.getPhoneNumber() ) 
 		);
 	}
 	

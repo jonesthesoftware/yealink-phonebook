@@ -12,6 +12,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -29,8 +30,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import io.github.jonesthesoftware.yealink.phonebook.type.Directory;
-import io.github.jonesthesoftware.yealink.phonebook.type.DirectoryEntry;
+import io.github.jonesthesoftware.yealink.phonebook.jpa.type.Directory;
+import io.github.jonesthesoftware.yealink.phonebook.jpa.type.DirectoryEntry;
+import io.github.jonesthesoftware.yealink.phonebook.jpa.type.PhoneEntry;
 import io.github.jonesthesoftware.yealink.phonebook.utility.XmlUtility;
 import io.github.jonesthesoftware.yealink.phonebook.xml.PhoneBookElement;
 
@@ -61,8 +63,10 @@ public class PhoneDirectoryToXmlDocumentConverterTest {
 	 */
 	@Test
 	public void convertTest() throws ParserConfigurationException {
-		Directory directory = new Directory( DIRECTORY_NAME );
-		DirectoryEntry directoryEntry = new DirectoryEntry( DIRECTORY_ENTRY_NAME );
+		Directory directory = new Directory();
+		directory.setDirectoryName( DIRECTORY_NAME );
+		DirectoryEntry directoryEntry = new DirectoryEntry();
+		directoryEntry.setEntryName( DIRECTORY_ENTRY_NAME );
 		directory.getDirectoryEntries().add( directoryEntry );
 		
 		Document mockDocument = Mockito.mock( Document.class );
@@ -109,8 +113,18 @@ public class PhoneDirectoryToXmlDocumentConverterTest {
 	@ParameterizedTest
 	@MethodSource( "provideCollectionForAddContactTest" )
 	public void convertDirectoryEntryTest( Collection<String> phoneNumbers ) {
-		DirectoryEntry directoryEntry = new DirectoryEntry( DIRECTORY_ENTRY_NAME );
-		directoryEntry.getTelephone().addAll( phoneNumbers );
+		DirectoryEntry directoryEntry = new DirectoryEntry();
+		directoryEntry.setEntryName( DIRECTORY_ENTRY_NAME );
+		directoryEntry.getPhoneEntries().addAll(
+			phoneNumbers.stream().map(
+					p -> {
+						PhoneEntry phoneEntry = new PhoneEntry();
+						phoneEntry.setPhoneNumber( p );
+						return phoneEntry;
+					}
+			).collect( Collectors.toList() ) 
+		);
+				
 		Element mockDirectoryEntryElement = Mockito.mock( Element.class );
 				
 		phoneDirectoryToXmlDocumentConverterSpy.convertDirectoryEntry( directoryEntry, mockDirectoryEntryElement );
