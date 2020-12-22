@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableJpaRepositories( "io.github.jonesthesoftware.yealink.phonebook.jpa" )
+@EnableJpaRepositories( "io.github.jonesthesoftware.yealink.phonebook.jpa.repository" )
 @EntityScan( "io.github.jonesthesoftware.yealink.phonebook.jpa.type" )
 public class PhoneBookApplication {
 

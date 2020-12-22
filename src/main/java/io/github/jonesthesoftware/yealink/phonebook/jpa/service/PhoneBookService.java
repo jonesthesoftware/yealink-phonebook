@@ -9,13 +9,13 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import io.github.jonesthesoftware.yealink.phonebook.jpa.repository.PhoneBookRepository;
+import io.github.jonesthesoftware.yealink.phonebook.jpa.repository.DirectoryRepository;
 
 @Service
 public class PhoneBookService {
 	
 	@Inject
-	private PhoneBookRepository phoneBookRepository;
+	private DirectoryRepository directoryRepository;
 	
 
 }
