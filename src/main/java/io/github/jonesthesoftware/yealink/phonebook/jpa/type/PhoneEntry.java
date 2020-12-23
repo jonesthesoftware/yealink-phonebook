@@ -34,7 +34,17 @@ public class PhoneEntry {
 	@JoinColumn( name = "DIRECTORY_ENTRY_ID", nullable = false )
 	private DirectoryEntry directoryEntry;
 	
+	private PhoneTypeEnum phoneType;
+	
 	private String phoneNumber;
+	
+	public PhoneTypeEnum getPhoneType() {
+		return phoneType;
+	}
+
+	public void setPhoneType( PhoneTypeEnum phoneType ) {
+		this.phoneType = phoneType;
+	}
 	
 	public void setPhoneNumber( String phoneNumber ) {
 		this.phoneNumber = phoneNumber;

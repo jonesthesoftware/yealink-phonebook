@@ -39,17 +39,26 @@ public class DirectoryEntry {
 	@JoinColumn( name = "DIRECTORY_ID", nullable = false )
 	private Directory directory;
 	
-	private String entryName;
+	private String firstName;
+	private String lastName;
 	
 	@OneToMany( mappedBy = "directoryEntry" )
 	private Collection<PhoneEntry> phoneEntries;
 	
-	public void setEntryName( String entryName ) {
-		this.entryName = entryName;
+	public void setFirstName( String firstName ) {
+		this.firstName = firstName;
 	}
 	
-	public String getEntryName() {
-		return entryName;
+	public String getFirstName() {
+		return firstName;
+	}
+	
+	public void setLastName( String lastName ) {
+		this.lastName = lastName;
+	}
+	
+	public String getLastName() {
+		return lastName;
 	}
 	
 	public Collection<PhoneEntry> getPhoneEntries() {

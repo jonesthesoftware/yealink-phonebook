@@ -19,9 +19,10 @@ public interface DirectoryEntryRepository extends JpaRepository<DirectoryEntry, 
 
 	@Query( value = 
 			"SELECT de FROM DirectoryEntry de"
-			+ " WHERE LOWER( de.entryName ) LIKE LOWER( CONCAT( '%', :name, '%' ) )" 
+			+ " WHERE LOWER( de.firstName ) LIKE LOWER( CONCAT( '%', :name, '%' ) )" 
+			+ " 	OR LOWER( de.lastName ) LIKE LOWER( CONCAT( '%', :name, '%' ) )"
 	)
-	List<DirectoryEntry> searchByEntryNameContains( @Param( "name" ) String name );
+	List<DirectoryEntry> searchByNameContains( @Param( "name" ) String name );
 	
 	@Query( value = 
 			"SELECT de FROM DirectoryEntry de JOIN de.phoneEntries pe"

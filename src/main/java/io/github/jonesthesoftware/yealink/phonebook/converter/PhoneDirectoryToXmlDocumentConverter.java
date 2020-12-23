@@ -59,12 +59,15 @@ public class PhoneDirectoryToXmlDocumentConverter implements Converter<Directory
 	
 	/**
 	 * Convert a Directory Entry into the Directory Entry Element
+	 * 
 	 * @param directoryEntry the directory entry to convert
 	 * @param directoryEntryElement the parent element, representing the directory entry element
-	 * @return
 	 */
 	protected void convertDirectoryEntry( DirectoryEntry directoryEntry, Element directoryEntryElement ) {
-		xmlUtility.addTextElement( directoryEntryElement, PhoneBookElement.CONTACT_NAME, directoryEntry.getEntryName() );
+		final String firstName = directoryEntry.getFirstName();
+		final String lastName = directoryEntry.getLastName();
+		final String name = ( firstName == null ? "" : firstName ) + ( lastName == null ? "" : " " + lastName );
+		xmlUtility.addTextElement( directoryEntryElement, PhoneBookElement.CONTACT_NAME, name );
 		directoryEntry.getPhoneEntries().forEach( 
 				p -> xmlUtility.addTextElement( directoryEntryElement, PhoneBookElement.PHONE_NUMBER, p.getPhoneNumber() ) 
 		);

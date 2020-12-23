@@ -12,7 +12,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaRepositories( "io.github.jonesthesoftware.yealink.phonebook.jpa.repository" )
-@EntityScan( "io.github.jonesthesoftware.yealink.phonebook.jpa.type" )
+@EntityScan( {
+	"io.github.jonesthesoftware.yealink.phonebook.jpa.type", 
+	"io.github.jonesthesoftware.yealink.phonebook.jpa.converter" 
+} )
 public class PhoneBookApplication {
 
 	public static void main( String[] args ) {

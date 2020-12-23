@@ -46,7 +46,6 @@ import io.github.jonesthesoftware.yealink.phonebook.xml.PhoneBookElement;
 public class PhoneDirectoryToXmlDocumentConverterTest {
 	
 	private static final String DIRECTORY_NAME = "Home";
-	private static final String DIRECTORY_ENTRY_NAME = "Test";
 	private static final String EXPECTED_DOCUMENT_NAME = DIRECTORY_NAME + PhoneBookElement.DIRECTORY_POSTFIX;
 	
 	@Mock 
@@ -66,7 +65,6 @@ public class PhoneDirectoryToXmlDocumentConverterTest {
 		Directory directory = new Directory();
 		directory.setDirectoryName( DIRECTORY_NAME );
 		DirectoryEntry directoryEntry = new DirectoryEntry();
-		directoryEntry.setEntryName( DIRECTORY_ENTRY_NAME );
 		directory.getDirectoryEntries().add( directoryEntry );
 		
 		Document mockDocument = Mockito.mock( Document.class );
@@ -93,13 +91,13 @@ public class PhoneDirectoryToXmlDocumentConverterTest {
 	 * Provides parameters for the convertDirectoryEntryTest method
 	 * Each list is provided to the conversion test method individually; results in tests for 1, 2, and 3 phone numbers.
 	 * 
-	 * @return a stream of lists which are used to provide the phone number collection
+	 * @return a stream of parameters which are used to provide the values for testing the directory entry
 	 */
 	private static Stream<Arguments> provideCollectionForAddContactTest() {
 		return Stream.of(
-			Arguments.of( List.of( "0123456789" ) ),
-			Arguments.of( List.of( "0123456789", "0987654321" ) ),
-			Arguments.of( List.of( "0123456789", "0987654321", "0918273645" ) )
+			Arguments.of( "James", null, List.of( "0123456789" ), "James" ),
+			Arguments.of( "David", "Jones", List.of( "0123456789", "0987654321" ), "David Jones" ),
+			Arguments.of( "Beth Anne", "Butler", List.of( "0123456789", "0987654321", "0918273645" ), "Beth Anne Butler" )
 	    );
 	}
 	
@@ -112,9 +110,10 @@ public class PhoneDirectoryToXmlDocumentConverterTest {
 	 */
 	@ParameterizedTest
 	@MethodSource( "provideCollectionForAddContactTest" )
-	public void convertDirectoryEntryTest( Collection<String> phoneNumbers ) {
+	public void convertDirectoryEntryTest( String firstName, String lastName, Collection<String> phoneNumbers, String expectedName ) {
 		DirectoryEntry directoryEntry = new DirectoryEntry();
-		directoryEntry.setEntryName( DIRECTORY_ENTRY_NAME );
+		directoryEntry.setFirstName( firstName );
+		directoryEntry.setLastName( lastName );
 		directoryEntry.getPhoneEntries().addAll(
 			phoneNumbers.stream().map(
 					p -> {
@@ -130,7 +129,7 @@ public class PhoneDirectoryToXmlDocumentConverterTest {
 		phoneDirectoryToXmlDocumentConverterSpy.convertDirectoryEntry( directoryEntry, mockDirectoryEntryElement );
 		
 	    verify( mockXmlUtility )
-	    	.addTextElement( mockDirectoryEntryElement, PhoneBookElement.CONTACT_NAME, DIRECTORY_ENTRY_NAME );
+	    	.addTextElement( mockDirectoryEntryElement, PhoneBookElement.CONTACT_NAME, expectedName );
 		phoneNumbers.forEach( p -> {
 	    		verify( mockXmlUtility ).addTextElement( mockDirectoryEntryElement, PhoneBookElement.PHONE_NUMBER, p );
 	    } );
