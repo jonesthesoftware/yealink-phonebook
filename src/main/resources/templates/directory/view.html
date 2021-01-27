@@ -9,22 +9,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
   xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>Yealink Phonebook</title>
+    <title>View Directory</title>
     <link rel="stylesheet" th:href="@{/css/standard.css}"/>
   </head>
   <body>
-    <h1>Yealink Phonebook</h1>
     <table>
       <thead>
         <tr>
-          <th th:text="Directory"/>
+          <th th:text="${directory.directoryName}"/>
         </tr>
       </thead>
       <tbody>
-        <tr th:each="directory: ${directories}">
+        <tr th:each="directoryEntry: ${directory.directoryEntries}">
           <td><a
-            th:href="@{/directory(id=${directory.id})}"
-            th:text="${directory.directoryName}"></a></td>
+            th:href="@{/entry(id=${directoryEntry.id})}"    
+            th:text="${directoryEntry.firstName}"></a>
+          </td>
         </tr>
       </tbody>
     </table>

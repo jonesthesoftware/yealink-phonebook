@@ -38,6 +38,10 @@ public class Directory {
 	@OneToMany( mappedBy = "directory" )
 	private Collection<DirectoryEntry> directoryEntries;
 	
+	public Short getId() {
+		return id;
+	}
+	
 	public void setDirectoryName( String directoryName ) {
 		this.directoryName = directoryName;
 	}

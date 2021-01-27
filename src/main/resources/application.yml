@@ -2,6 +2,10 @@ server:
   port: 8080
   
 spring:
+  data:
+    rest:
+      base-path: /db
+
   datasource:
     url: jdbc:h2:mem:PhoneBook  
     username: sa

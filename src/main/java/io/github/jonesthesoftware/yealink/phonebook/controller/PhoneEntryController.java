@@ -5,36 +5,37 @@
  */
 package io.github.jonesthesoftware.yealink.phonebook.controller;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import io.github.jonesthesoftware.yealink.phonebook.jpa.service.PhoneBookService;
-import io.github.jonesthesoftware.yealink.phonebook.jpa.type.Directory;
+import io.github.jonesthesoftware.yealink.phonebook.jpa.type.DirectoryEntry;
 
 @Controller
-public class PhoneBookController {
+public class PhoneEntryController {
 	
 	private final PhoneBookService phoneBookService;
 	
 	@Inject
-	PhoneBookController( PhoneBookService phoneBookService ) {
+	PhoneEntryController( PhoneBookService phoneBookService ) {
 		this.phoneBookService = phoneBookService;
 	}
 	
-	@RequestMapping( value = "/", method = RequestMethod.GET )
-	public String listDirectories( Model model ) {
-		List<Directory> directories = phoneBookService.getDirectories();
+	@RequestMapping( value = "/entry", method = RequestMethod.GET )
+	public String viewEntry( 
+			@RequestParam( "id" ) Integer id,
+			Model model  
+	) {
+		DirectoryEntry directoryEntry = phoneBookService.getDirectoryEntry( id );
+		
+		model.addAttribute( "directoryEntry", directoryEntry );
 
-		model.addAttribute( "directories", directories );
-
-		return "index";
+		return "entry/view";
 	}
-
 
 }

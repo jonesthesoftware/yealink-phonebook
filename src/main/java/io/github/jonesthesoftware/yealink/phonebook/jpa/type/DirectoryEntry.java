@@ -45,6 +45,10 @@ public class DirectoryEntry {
 	@OneToMany( mappedBy = "directoryEntry" )
 	private Collection<PhoneEntry> phoneEntries;
 	
+	public Integer getId() {
+		return id;
+	}
+	
 	public void setFirstName( String firstName ) {
 		this.firstName = firstName;
 	}
